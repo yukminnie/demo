@@ -1,80 +1,8 @@
 # coding=utf-8
-import time
-import youtube_dl
-import pyperclip
-from retrying import retry
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
+import json
 
+text = """ mtopjsonp6({"api":"mtop.taobao.maserati.personal.works","data":{"context":{},"ok":"true","result":{"data":{"total":"5101","isLast":"false","feeds":[{"cardType":"video","cover":"//img.alicdn.com/imgextra/i4/2830069487/O1CN01XkHXXS2Jx67znRvZq_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"534"},"id":"294394853333","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294394853333&source=darenhomepage&type=darenhomepage","whRate":"1.0"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i2/2830069487/O1CN01vvCiqd2Jx6829EEqK_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"416"},"id":"294070356589","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294070356589&source=darenhomepage&type=darenhomepage","whRate":"1.0"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i3/2830069487/O1CN01aDNtA32Jx67yYsRxj_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"335"},"id":"294390445600","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294390445600&source=darenhomepage&type=darenhomepage","whRate":"1.0"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i2/2830069487/O1CN01hXgc1i2Jx67ziyWrb_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"324"},"id":"294663202317","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294663202317&source=darenhomepage&type=darenhomepage","whRate":"1.0"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i1/2830069487/O1CN015bSE8p2Jx683T3GA5_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"444"},"id":"294662318031","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294662318031&source=darenhomepage&type=darenhomepage","whRate":"1.0"},{"cardType":"normal","cover":"//img.alicdn.com/imgextra/i4/2830069487/O1CN01NqFBvP2Jx682y6EIN_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"445"},"id":"294835627856","top":"false","url":"//scontent.m.taobao.com/detail?pageType=pgc_detail&contentId=294835627856&source=darenhome&sourcePageName=darenhome&disableNav=YES","whRate":"1.0"},{"cardType":"video","cover":"https://img.alicdn.com/imgextra/i3/2830069487/O1CN01tRjTzT2Jx681qV5h9_!!2830069487-2-tmap.png","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"805"},"id":"294851323759","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294851323759&source=darenhomepage&type=darenhomepage","whRate":"0.56"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i1/2830069487/O1CN010TYe1l2Jx67xAhcuJ_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"589"},"id":"294279761174","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294279761174&source=darenhomepage&type=darenhomepage","whRate":"0.56"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i3/2830069487/O1CN01SU8GOH2Jx687CIuLD_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"689"},"id":"294847507521","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294847507521&source=darenhomepage&type=darenhomepage","whRate":"0.56"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i2/2830069487/O1CN01L40cJl2Jx682yS7K9_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"781"},"id":"293942436959","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=293942436959&source=darenhomepage&type=darenhomepage","whRate":"0.56"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i2/2830069487/O1CN01LDr7WI2Jx67y7t3w7_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"393"},"id":"293940420366","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=293940420366&source=darenhomepage&type=darenhomepage","whRate":"0.56"},{"cardType":"video","cover":"https://img.alicdn.com/imgextra/i1/2830069487/O1CN01gNXfYv2Jx67yhgC8S_!!2830069487-2-tmap.png","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"624"},"id":"294535254774","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294535254774&source=darenhomepage&type=darenhomepage","whRate":"0.56"}],"userId":"2830069487"}}},"ret":["SUCCESS::调用成功"],"v":"1.0"})"""
 
-# def onread():
-#     data = pyperclip.paste()
-#     while True:
-#         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-#         ydl.download([youtube_url])
-#         continue
-
-# onread()
-
-# data = pyperclip.paste()
-# url = 'https://www.youtube.com/watch?v=Flf_7bpuxJU&t=141s'
-
-# while True:
-#         data = pyperclip.paste()
-#         data= str(data)
-#         if (data.startswith("https")):
-#                 # print(data)
-#                 ydl_opts = {}
-#                 with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-#                         ydl.download([data])
-#                         continue
-#         else:
-#                 print('no')
-#                 continue
-
-
-recent_data = ''
-
-
-@retry(stop_max_attempt_number=7, wait_fixed=5000)
-def down(data):
-    ydl_opts = {
-        'nooverwrites': True,
-        'ignoreerrors': True
-    }
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([data])
-
-
-while True:
-    data = pyperclip.paste()
-    data = str(data)
-    if (data == recent_data):
-        print('文本相同, 3s后重新开始监听')
-        time.sleep(3)
-        continue
-    else:
-        print('文本不同, 尝试下载')
-        if (data.startswith("https")):
-            # print(data)
-            #     @retry(stop_max_attempt_number=7)
-            #     try:
-            #         ydl_opts = {
-            #             'nooverwrites': True,
-            #             'ignoreerrors': True
-            #         }
-            #         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            #             ydl.download([data])
-            #             recent_data = data
-            #             continue
-            #     except expression as identifier:
-            #         pass
-            down(data)
-            recent_data = data
-            continue
-        else:
-            print('文本非链接, 3s后重新开始监听')
-            time.sleep(3)
-            recent_data = data
-            continue
+print(text[12:-70])
+r = json.loads(text[12:-70])
+print(r)

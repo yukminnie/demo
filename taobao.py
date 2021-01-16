@@ -1,14 +1,56 @@
 # coding=utf-8
+from http import cookies
 import json
 import requests
+import random
+from fake_useragent import UserAgent
+from http.cookies import SimpleCookie
 
-text = '''
-mtopjsonp4({"api":"mtop.taobao.maserati.personal.works","data":{"context":{},"ok":"true","result":{"data":{"total":"5078","isLast":"false","feeds":[{"cardType":"video","cover":"//img.alicdn.com/imgextra/i3/2830069487/O1CN01nZyijt2Jx682sthoG_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"342"},"id":"294103032257","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294103032257&source=darenhomepage&type=darenhomepage","whRate":"0.56"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i4/2830069487/O1CN01XkHXXS2Jx67znRvZq_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"419"},"id":"294394853333","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294394853333&source=darenhomepage&type=darenhomepage","whRate":"1.0"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i2/2830069487/O1CN01vvCiqd2Jx6829EEqK_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"354"},"id":"294070356589","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294070356589&source=darenhomepage&type=darenhomepage","whRate":"1.0"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i3/2830069487/O1CN01aDNtA32Jx67yYsRxj_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"308"},"id":"294390445600","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294390445600&source=darenhomepage&type=darenhomepage","whRate":"1.0"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i2/2830069487/O1CN01hXgc1i2Jx67ziyWrb_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"240"},"id":"294663202317","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294663202317&source=darenhomepage&type=darenhomepage","whRate":"1.0"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i1/2830069487/O1CN015bSE8p2Jx683T3GA5_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"385"},"id":"294662318031","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294662318031&source=darenhomepage&type=darenhomepage","whRate":"1.0"},{"cardType":"normal","cover":"//img.alicdn.com/imgextra/i4/2830069487/O1CN01NqFBvP2Jx682y6EIN_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"386"},"id":"294835627856","top":"false","url":"//scontent.m.taobao.com/detail?pageType=pgc_detail&contentId=294835627856&source=darenhome&sourcePageName=darenhome&disableNav=YES","whRate":"1.0"},{"cardType":"video","cover":"https://img.alicdn.com/imgextra/i3/2830069487/O1CN01tRjTzT2Jx681qV5h9_!!2830069487-2-tmap.png","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"657"},"id":"294851323759","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294851323759&source=darenhomepage&type=darenhomepage","whRate":"0.56"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i1/2830069487/O1CN010TYe1l2Jx67xAhcuJ_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"521"},"id":"294279761174","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294279761174&source=darenhomepage&type=darenhomepage","whRate":"0.56"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i3/2830069487/O1CN01SU8GOH2Jx687CIuLD_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"575"},"id":"294847507521","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=294847507521&source=darenhomepage&type=darenhomepage","whRate":"0.56"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i2/2830069487/O1CN01L40cJl2Jx682yS7K9_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"615"},"id":"293942436959","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=293942436959&source=darenhomepage&type=darenhomepage","whRate":"0.56"},{"cardType":"video","cover":"//img.alicdn.com/imgextra/i2/2830069487/O1CN01LDr7WI2Jx67y7t3w7_!!2830069487-0-beehive-scenes.jpg","coverHeight":"0","coverWidth":"0","feedCount":{"viewCount":"336"},"id":"293940420366","top":"false","url":"https://market.m.taobao.com/app/tb-source-app/video-fullpage/pages/index?wh_weex=true&wx_navbar_hidden=true&wx_navbar_transparent=true&id=293940420366&source=darenhomepage&type=darenhomepage","whRate":"0.56"}],"userId":"2830069487"}}},"ret":["SUCCESS::调用成功"],"v":"1.0"})'''
+# 自动 userAgent
+ua = UserAgent()
 
-# 解析链接
-def parseContent(text):
+with open('./mobile_user_agents.txt') as f:
+    # for i in f.readlines():
+    #     print(i.strip())
+    mobile_user_agents = [i.strip() for i in f.readlines()]
+    
+def get_ua(is_mobile = False):
+    return random.choice(mobile_user_agents) if is_mobile else ua.random
+
+# 手动 userAgent
+headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"}
+
+# 解析 cookies
+def get_cookie():
+    ck = SimpleCookie()
+    with open("./cookie.txt") as f:
+        ck.load((f.read()))
+
+    cookies = {}
+    for key, morsel in ck.items():
+        cookies[key] = morsel.value
+    return cookies
+
+
+# 调用代理池
+def get_proxy():
+    pass
+
+
+url = """https://h5api.m.taobao.com/h5/mtop.taobao.maserati.personal.works/1.0/?jsv=2.6.1&appKey=12574478&t=1610787029456&sign=52ff50dbf8f11b7771a2275dfd88c43a&v=1.0&api=mtop.taobao.maserati.personal.works&preventFallback=true&type=jsonp&dataType=jsonp&callback=mtopjsonp6&data=%7B%22source%22%3A%22normal%22%2C%22type%22%3A%22h5%22%2C%22userId%22%3A%222830069487%22%2C%22page%22%3A5%2C%22sort%22%3A%22default%22%2C%22sortType%22%3A0%7D"""
+
+# 获取网页
+def get_content(url):
+    cookies = get_cookie()
+    r = requests.get(url, headers = headers, cookies = cookies)
+    return r.content
+
+text = get_content(url)
+
+# 解析网页
+def parse_content(text):
     text = text[12:-1]
-    rv = json.loads(text.decode('utf-8'))
+    rv = json.loads(text)
     containList = rv['data']['result']['data']['feeds']
     for list in containList:
         downList = list.values()[0]
@@ -17,4 +59,4 @@ def parseContent(text):
         else:
             pass
         
-parseContent(text)
+# parse_content(text)
